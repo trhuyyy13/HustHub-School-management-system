@@ -1,0 +1,442 @@
+<!-- src/views/admin-teacher-page.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <title>HUSTHUB - Manage Teachers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin-page.css">
+    <link rel="stylesheet" href="/css/admin-teacher-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> 
+    <style>
+        .toast-center {
+            top: 20px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: auto !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <%- include('in-app-header') %>
+
+    <!-- Spinner Overlay -->
+    <div class="spinner-overlay" id="spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="/admin">HOME</a></li>
+            <li><a href="/admin/teacher">TEACHER</a></li>
+            <li><a href="/admin/student">STUDENT</a></li>
+            <li><a href="/admin/courses">COURSES</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="teacher-container">
+        <h1>Manage Teachers</h1>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <form id="searchTeacherForm" class="search-form">
+                <div class="textbox">
+                    <div class="textbox-box">
+                        <div class="textbox-field">
+                            <input type="text" id="searchText" name="query" placeholder="Search by ID or Name..." class="textbox-text" />
+                        </div>
+                        <button type="submit" class="search-button"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Add New Teacher Button -->
+        <button id="addTeacherBtn" class="add-btn">Add New Teacher</button>
+
+        <!-- Add New Teacher Modal -->
+        <div id="addTeacherModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Add New Teacher</h2>
+                <form id="addTeacherForm" class="teacher-form">
+                    <label for="teacher_id">Teacher ID:</label>
+                    <input type="text" name="teacher_id" required>
+
+                    <label for="teacher_name">Name:</label>
+                    <input type="text" name="teacher_name" required>
+
+                    <label for="teacher_faculty">Faculty:</label>
+                    <input type="text" name="teacher_faculty" required>
+
+                    <label for="teacher_email">Email:</label>
+                    <input type="email" name="teacher_email" required>
+
+                    <button type="submit">Add Teacher</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Teacher Modal -->
+        <div id="editTeacherModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Teacher</h2>
+                <form id="editTeacherForm" class="teacher-form">
+                    <input type="hidden" name="teacher_id" id="editTeacherId">
+                    
+                    <label for="edit_teacher_name">Name:</label>
+                    <input type="text" name="teacher_name" id="edit_teacher_name" required>
+                    
+                    <label for="edit_teacher_faculty">Faculty:</label>
+                    <input type="text" name="teacher_faculty" id="edit_teacher_faculty" required>
+                    
+                    <label for="edit_teacher_email">Email:</label>
+                    <input type="email" name="teacher_email" id="edit_teacher_email" required>
+                    
+                    <button type="submit">Update Teacher</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Teachers Table -->
+        <h2>Teachers List</h2>
+        <div class="table-container">
+            <table class="teacher-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="?sortBy=teacher_id&sortOrder=<%= sortBy === 'teacher_id' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                                Teacher ID
+                                <% if (sortBy === 'teacher_id') { %>
+                                    <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                                <% } %>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="?sortBy=teacher_name&sortOrder=<%= sortBy === 'teacher_name' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                                Name
+                                <% if (sortBy === 'teacher_name') { %>
+                                    <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                                <% } %>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="?sortBy=teacher_faculty&sortOrder=<%= sortBy === 'teacher_faculty' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                                Faculty
+                                <% if (sortBy === 'teacher_faculty') { %>
+                                    <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                                <% } %>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="?sortBy=teacher_email&sortOrder=<%= sortBy === 'teacher_email' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                                Email
+                                <% if (sortBy === 'teacher_email') { %>
+                                    <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                                <% } %>
+                            </a>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="teacherTableBody">
+                    <% teachers.forEach(function(teacher) { %>
+                        <tr>
+                            <td><%= teacher.teacher_id %></td>
+                            <td><%= teacher.teacher_name %></td>
+                            <td><%= teacher.teacher_faculty %></td>
+                            <td><%= teacher.teacher_email %></td>
+                            <td>
+                                <div class="button-container">
+                                    <button class="edit-btn" data-id="<%= teacher.teacher_id %>" data-name="<%= teacher.teacher_name %>" data-faculty="<%= teacher.teacher_faculty %>" data-email="<%= teacher.teacher_email %>">
+                                        <i class="fas fa-pencil-alt"></i> Edit
+                                    </button>
+                                    <form action="/admin/teacher/delete" method="POST" class="teacher-delete-form">
+                                        <input type="hidden" name="teacher_id" value="<%= teacher.teacher_id %>">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this teacher?');">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <% if (currentPage > 1) { %>
+                <a href="?page=<%= currentPage - 1 %>&sortBy=<%= sortBy %>&sortOrder=<%= sortOrder %>">&laquo; Previous</a>
+            <% } %>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <a href="?page=<%= i %>&sortBy=<%= sortBy %>&sortOrder=<%= sortOrder %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+            <% if (currentPage < totalPages) { %>
+                <a href="?page=<%= currentPage + 1 %>&sortBy=<%= sortBy %>&sortOrder=<%= sortOrder %>">Next &raquo;</a>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h3>The system is designed and developed by GROUP 6</h3>
+        <p>Get the HUSTHUB app on mobile</p>
+        <a href="#"><img src="/img/google-play.png" alt="Get it on Google Play"></a>
+        <a href="#"><img src="/img/app-store.png" alt="Download on the App Store"></a>
+    </div>
+
+    <!-- Scripts -->
+<!-- Scripts -->
+<!-- Scripts -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toastr Configuration
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-center",
+            "timeOut": "3000"
+        };
+
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get('action');
+        // Spinner functionality
+        const spinner = document.getElementById('spinner');
+
+        function showSpinner() {
+            spinner.style.display = 'flex';
+        }
+
+        function hideSpinner() {
+            spinner.style.display = 'none';
+        }
+
+        // Apply fade-in only if action is NOT 'sort'
+        if (action !== 'sort') {
+            const teacherContainer = document.querySelector('.teacher-container');
+            if (teacherContainer) {
+                teacherContainer.classList.add('fade-in');
+
+                // Remove 'fade-in' class after animation to prevent re-triggering
+                setTimeout(() => {
+                    teacherContainer.classList.remove('fade-in');
+                }, 500); // Duration should match the CSS animation duration
+            }
+        }
+
+        // Hide spinner after initial load
+        hideSpinner();
+
+        // Modal functionality
+        const addModal = document.getElementById("addTeacherModal");
+        const addBtn = document.getElementById("addTeacherBtn");
+        const addSpan = addModal.querySelector(".close");
+
+        addBtn.onclick = function() {
+            addModal.style.display = "block";
+        }
+
+        addSpan.onclick = function() {
+            addModal.style.display = "none";
+        }
+
+        const editModal = document.getElementById("editTeacherModal");
+        const editSpans = document.querySelectorAll(".modal .close");
+
+        editSpans.forEach(span => {
+            span.onclick = function() {
+                this.parentElement.parentElement.style.display = "none";
+            }
+        });
+
+        window.onclick = function(event) {
+            if (event.target == addModal) {
+                addModal.style.display = "none";
+            }
+            if (event.target == editModal) {
+                editModal.style.display = "none";
+            }
+        }
+
+        // Edit button functionality
+        function attachEditListeners() {
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const teacherId = this.getAttribute('data-id');
+                    const teacherName = this.getAttribute('data-name');
+                    const teacherFaculty = this.getAttribute('data-faculty');
+                    const teacherEmail = this.getAttribute('data-email');
+
+                    document.getElementById('editTeacherId').value = teacherId;
+                    document.getElementById('edit_teacher_name').value = teacherName;
+                    document.getElementById('edit_teacher_faculty').value = teacherFaculty;
+                    document.getElementById('edit_teacher_email').value = teacherEmail;
+
+                    editModal.style.display = "block";
+                });
+            });
+        }
+
+        attachEditListeners();
+
+        // Add Teacher Form Submission
+        const addTeacherForm = document.getElementById('addTeacherForm');
+        addTeacherForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSpinner();
+
+            const formData = {
+                teacher_id: addTeacherForm.elements['teacher_id'].value,
+                teacher_name: addTeacherForm.elements['teacher_name'].value,
+                teacher_faculty: addTeacherForm.elements['teacher_faculty'].value,
+                teacher_email: addTeacherForm.elements['teacher_email'].value
+            };
+
+            fetch('/admin/teacher/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideSpinner();
+                if (data.error) {
+                    toastr.error(data.error); // Toastr Error Notification
+                } else {
+                    toastr.success(data.message); // Toastr Success Notification
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                hideSpinner();
+                console.error('Error creating teacher:', error);
+                toastr.error('An error occurred while creating the teacher.'); // Toastr Error Notification
+            });
+        });
+
+        // Edit Teacher Form Submission
+        const editTeacherForm = document.getElementById('editTeacherForm');
+        editTeacherForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSpinner();
+
+            const formData = {
+                teacher_id: editTeacherForm.elements['teacher_id'].value,
+                teacher_name: editTeacherForm.elements['teacher_name'].value,
+                teacher_faculty: editTeacherForm.elements['teacher_faculty'].value,
+                teacher_email: editTeacherForm.elements['teacher_email'].value
+            };
+
+            fetch('/admin/teacher/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideSpinner();
+                if (data.error) {
+                    toastr.error(data.error); // Toastr Error Notification
+                } else {
+                    toastr.success(data.message); // Toastr Success Notification
+                    // Update the table row directly
+                    const row = document.querySelector(`button[data-id="${formData.teacher_id}"]`).closest('tr');
+                    row.querySelector('td:nth-child(2)').textContent = formData.teacher_name;
+                    row.querySelector('td:nth-child(3)').textContent = formData.teacher_faculty;
+                    row.querySelector('td:nth-child(4)').textContent = formData.teacher_email;
+
+                    // Update the data attributes of the edit button
+                    const editButton = row.querySelector('.edit-btn');
+                    editButton.setAttribute('data-name', formData.teacher_name);
+                    editButton.setAttribute('data-faculty', formData.teacher_faculty);
+                    editButton.setAttribute('data-email', formData.teacher_email);
+
+                    editModal.style.display = "none";
+                }
+            })
+            .catch(error => {
+                hideSpinner();
+                console.error('Error updating teacher:', error);
+                toastr.error('An error occurred while updating the teacher.'); // Toastr Error Notification
+            });
+        });
+
+        // Show spinner when delete forms are submitted
+        const deleteForms = document.querySelectorAll('.teacher-delete-form');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function() {
+                showSpinner();
+            });
+        });
+
+        // Fetch functionality for search
+        const searchTeacherForm = document.getElementById('searchTeacherForm');
+        searchTeacherForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = document.getElementById('searchText').value.trim();
+            showSpinner();
+
+            fetch(`/admin/teacher/search?query=${encodeURIComponent(query)}&action=search`)
+                .then(response => response.json())
+                .then(data => {
+                    hideSpinner();
+                    const tbody = document.getElementById('teacherTableBody');
+                    tbody.innerHTML = '';
+
+                    data.teachers.forEach(teacher => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${teacher.teacher_id}</td>
+                            <td>${teacher.teacher_name}</td>
+                            <td>${teacher.teacher_faculty}</td>
+                            <td>${teacher.teacher_email}</td>
+                            <td>
+                                <div class="button-container">
+                                    <button class="edit-btn" 
+                                            data-id="${teacher.teacher_id}" 
+                                            data-name="${teacher.teacher_name}" 
+                                            data-faculty="${teacher.teacher_faculty}" 
+                                            data-email="${teacher.teacher_email}">
+                                        <i class="fas fa-pencil-alt"></i> Edit
+                                    </button>
+                                    <form action="/admin/teacher/delete" method="POST" class="teacher-delete-form">
+                                        <input type="hidden" name="teacher_id" value="${teacher.teacher_id}">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this teacher?');">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    // Re-attach event listeners for new edit buttons
+                    attachEditListeners();
+                })
+                .catch(error => {
+                    hideSpinner();
+                    console.error('Error fetching teachers:', error);
+                    toastr.error('An error occurred while fetching teachers.'); // Toastr Error Notification
+                });
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+</html>

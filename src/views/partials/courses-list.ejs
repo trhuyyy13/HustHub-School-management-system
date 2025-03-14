@@ -1,0 +1,24 @@
+<div class="DisplayAllCourses">
+    <div class="container">
+        <% if (courses.length > 0) { %>
+            <% courses.forEach(function(course, index) { %>
+                <div class="courses-card">
+                    <div class="courses-id">
+                        <a href="/admin/courses/<%= course.course_id %>">
+                            <strong><%= course.course_id %></strong>
+                        </a>
+                    </div>
+                    <div class="courses-info">
+                        <p><strong>Tên:</strong> <%= course.course_name %></p>
+                        <p><strong>TC:</strong> <%= course.course_credit %></p>
+                    </div>
+                </div>
+                <% if ((index + 1) % 5 === 0) { %>
+                    <div class="row-break"></div> <!-- Tạo khoảng cách sau mỗi 5 ô -->
+                <% } %>
+            <% }); %>
+        <% } else { %>
+            <p>Không tìm thấy khóa học nào.</p>
+        <% } %>
+    </div>
+</div>

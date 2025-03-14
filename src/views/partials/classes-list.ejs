@@ -1,0 +1,24 @@
+<div class="DisplayAllClasses">
+    <div class="container">
+        <% if (classes.length > 0) { %>
+            <% classes.forEach(function(classItem, index) { %>
+                <div class="class-card">
+                    <div class="class-id">
+                        <strong><%= classItem.class_id %></strong>
+                    </div>
+                    <div class="class-info">
+                        <p><strong>Giáo Viên:</strong> <%= classItem.teacher_name %></p>
+                        <p><strong>Ngày:</strong> <%= classItem.class_time_day %></p>
+                        <p><strong>Thời Gian:</strong> <%= `${classItem.class_time_start} - ${classItem.class_time_end}` %></p>
+                        <p><strong>Vị trí:</strong> <%= classItem.room_id %></p>
+                    </div>
+                </div>
+                <% if ((index + 1) % 2 === 0) { %>
+                    <div class="row-break"></div> <!-- Tạo khoảng cách sau mỗi 5 ô -->
+                <% } %>
+            <% }); %>
+        <% } else { %>
+            <p>Không tìm thấy lớp học nào.</p>
+        <% } %>
+    </div>
+</div>

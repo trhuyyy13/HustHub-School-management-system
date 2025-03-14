@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/grades.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <title>Input Grades</title>
+</head>
+<body>
+    <%- include('in-app-header') %>
+
+    <div class="main">
+        <h1>Input Grades for Class: <%= classId %></h1>
+
+        <form action="/teacher/classes/<%= classId %>/grades" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Mid-term Grade</th>
+                        <th>Final Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.student_id %></td>
+                            <td><%= student.student_name %></td>
+                            <td><input type="number" value="<%= student.midterm_score %>" min="0" max="10"></td>
+                            <td><input type="number" value="<%= student.final_score %>" min="0" max="10"></td>
+                            <td>
+                                <button type="button" class="btn" onclick="submitGrades('<%= student.student_id %>')">Submit</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <%- include('footer') %>
+</body>
+</html>

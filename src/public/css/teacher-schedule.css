@@ -1,0 +1,44 @@
+.container {
+    margin: 20px auto;
+    max-width: 1200px;
+    text-align: center;
+}
+
+#calendar {
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: #186A3B;
+    z-index: 1000;
+    padding: 1px;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.nav-list li {
+    margin: 0 100px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.nav-list a:hover {
+    color: #009688; /* Primary color */
+
+}

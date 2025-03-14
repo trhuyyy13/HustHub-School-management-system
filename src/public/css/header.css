@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background */
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    background-color: #cfe2cf; /* Light green background */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    z-index: 1000;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.title-container {
+    display: inline-block;
+    text-align: left;
+}
+
+.logo img {
+    height: 50px; /* Adjust logo size */
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #009688; /* Primary color */
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #555; /* Subtitle color */
+    margin: 0;
+}
+
+.right-section {
+    margin-right: 50px;
+    text-decoration: none;
+}
+
+.login-btn {
+    background-color: #cfe2cf;
+    color: black;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    align-items: right;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #009688; /* Primary color */
+    color: white;
+}

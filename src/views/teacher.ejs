@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/teacher.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <title>Teacher Dashboard</title>
+</head>
+
+<body>
+    <%- include('in-app-header') %>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="/teacher" class="nav-link">HOME</a></li>
+                <li><a href="/teacher/classes" class="nav-link">CLASSES</a></li>
+                <li><a href="/teacher/schedule" class="nav-link">SCHEDULE</a></li>
+            </ul>
+        </nav>
+
+        <div class="main">
+            <div class="welcome-container">
+                <!-- Personalized Greeting -->
+                <h1>Welcome, <span id="teacher-name">
+                        <%= user.teacher_name %>
+                    </span></h1>
+                <p>
+                    <%= user.teacher_faculty %>
+                </p>
+                <p>ID: <%= user.teacher_id %> | Email: <%= user.teacher_email %>
+                </p>
+
+                <div class="cards-container">
+                    <!-- Number of Classes Card -->
+                    <div class="card" onclick="window.location.href='/teacher/classes'">
+                        <h2>Classes</h2>
+                        <img src="/img/teacher1.png" alt="Teacher Image" class="card-image">
+                        <p>View and manage your classes</p>
+                    </div>
+
+                    <div class="card" onclick="window.location.href='/teacher/schedule'">
+                        <h2>Calendar</h2>
+                        <img src="/img/teacher2.png" alt="Calendar Image" class="card-image">
+                        <p>View my timetable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('footer') %>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/landing-page.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <title>HUSTHUB</title>
+</head>
+
+<body>
+    <%- include('guest-header') %>
+
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about-us">ABOUT US</a></li>
+                <li><a href="#news">NEWS</a></li>
+                <li><a href="#events">EVENTS</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+
+        <div class="main">
+            <div id="home" class="home-content">
+                <img src="/img/home.png" alt="Home Image" />
+            </div>
+
+            <div id="about-us" class="about-us-content">
+                <h2>About Us</h2>
+                <div class="team-member-container">
+                    <div class="team-member">
+                        <img src="/img/huy-ava.jpg" alt="Team Member" />
+                        <div class="team-member-info">
+                            <h3>Tran Quang Huy</h3>
+                            <p>20226109</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="/img/tung-ava.jpg" alt="Team Member" />
+                        <div class="team-member-info">
+                            <h3>Ng Luong Hoang Tung</h3>
+                            <p>20226129</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="/img/hung-ava.jpg" alt="Team Member" />
+                        <div class="team-member-info">
+                            <h3>Ngo Manh Hung</h3>
+                            <p>20226083</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="/img/hieu-ava.jpg" alt="Team Member" />
+                        <div class="team-member-info">
+                            <h3>Nguyen Trung Hieu</h3>
+                            <p>20226082</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="news" class="news-content">
+                <h2>News</h2>
+                <div class="news-container">
+                    <a href="https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/thu-tuong-pham-minh-chinh-du-va-chuc-mung-dai-hoc-bach-khoa-ha-noi-khanh-thanh-bk-smart-tech-center-655211.html"
+                        class="news">
+                        <img src="/img/news-1.jpg" alt="News Image" />
+                        <div class="news-info">
+                            <h3>Thủ tướng Phạm Minh Chính dự và chúc mừng Đại học Bách khoa Hà Nội khánh thành BK Smart
+                                - Tech Center</h3>
+                            <p>Thứ ba - 01/10/2024 16:48</p>
+                        </div>
+                    </a>
+                    <a href="https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/techconnect-vietnam-innovation-vietnam-2024-thay-tro-bach-khoa-ha-noi-ung-dung-khcn-dmst-gop-phan-phat-trien-thu-do-dat-nuoc-655210.html"
+                        class="news">
+                        <img src="/img/news-2.jpg" alt="News Image" />
+                        <div class="news-info">
+                            <h3>Techconnect & Innovation Vietnam 2024: Thầy trò Bách khoa Hà Nội ứng dụng KHCN - ĐMST
+                                góp phần phát triển Thủ đô, đất nước</h3>
+                            <p>Thứ hai - 30/09/2024 20:03</p>
+                        </div>
+                    </a>
+                    <a href="https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/bach-khoa-ha-noi-san-sang-dong-hanh-cung-auf-thuc-day-phat-trien-khkt-va-cong-dong-nckh-phap-ngu-tai-viet-nam-655208.html"
+                        class="news">
+                        <img src="/img/news-3.jpg" alt="News Image" />
+                        <div class="news-info">
+                            <h3>Bách khoa Hà Nội sẵn sàng đồng hành cùng AUF thúc đẩy phát triển KHKT và cộng đồng NCKH
+                                Pháp ngữ tại Việt Nam</h3>
+                            <p>Thứ tư - 25/09/2024 17:08</p>
+                        </div>
+                    </a>
+                    <a href="https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/" class="view-more-btn">VIEW MORE
+                        NEWS</a>
+                </div>
+            </div>
+
+            <div id="events" class="events-content">
+                <h2>Events</h2>
+                <div class="events-container">
+                    <div class="event">
+                        <img src="/img/event-1.png" alt="Event Image" />
+                        <div class="event-info">
+                            <h3>TRIỂN LÃM GIÁO DỤC HOA KỲ BẬC SAU ĐẠI HỌC - KHỐI NGÀNH STEM</h3>
+                            <p>Thứ ba - 24/09/2024 00:24</p>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <img src="/img/event-2.jpeg" alt="Event Image" />
+                        <div class="event-info">
+                            <h3>Hội thảo tuyển dụng của công ty TNHH LG INNOTEK VN Hải Phòng</h3>
+                            <p>Thứ hai - 10/06/2024 05:52</p>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <img src="/img/event-3.jpg" alt="Event Image" />
+                        <div class="event-info">
+                            <h3>Kết quả xét đạt tiêu chuẩn GS, PGS năm 2024 tại Hội đồng Giáo sư cơ sở của ĐHBK Hà Nội
+                            </h3>
+                            <p>Thứ năm - 18/07/2024 05:11</p>
+                        </div>
+                    </div>
+                    <a href="https://hust.edu.vn/vi/events/" class="view-more-btn">VIEW MORE EVENTS</a>
+                </div>
+            </div>
+
+            <div id="contact" class="contact-content">
+                <h2>Contact</h2>
+                <div class="contact-container">
+                    <div class="contact-location">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11406.692179353664!2d105.82462012767787!3d21.007296215908568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac71294bf0ab%3A0xc7e2d20e5e04a9da!2sHanoi%20University%20of%20Science%20and%20Technology!5e1!3m2!1sen!2s!4v1729236615679!5m2!1sen!2s"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Phone</h3>
+                        <p>0123456789</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <%- include('footer') %>
+
+</body>
+
+</html>

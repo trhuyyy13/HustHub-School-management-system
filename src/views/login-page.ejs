@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login-page.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <title>HUSTHUB</title>
+</head>
+<body>
+        <header>
+            
+    <a href="/" class="left-section">
+        <div class="logo">
+            <img src="/img/logo.png" alt="HUSTHUB Logo" />
+        </div>
+        <div class="title-container">
+            <h1 class="title">HUSTHUB</h1>
+            <h2 class="subtitle">School Management System</h2>
+        </div>
+    </a>
+    </header>
+        
+    <main>
+        <div class="login-container">
+            <form action="/login" method="POST" class="login-form" id="loginForm">
+                <div class="role-selection">
+                    <h1>You are </h1> 
+                    <label for="role">Role:</label>
+                    <select id="role" name="role">
+                        <option value="admin">Admin</option>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select><br><br>
+                    <button type="button" id="selectRole">Next</button>
+                </div>
+                <div class="login-details" style="display: none;">
+                    <h1 id="helloRole"></h1>
+                    <!-- <button type = "button" id="comeBack">Come back</button> -->
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+            <h3>The system is designed and developed by GROUP 6</h3>
+            <p>Get app HUSTHUB on mobile</p>
+            <a href="#"><img src="/img/google-play.png" alt="Get it on Google Play"></a>
+            <a href="#"><img src="/img/app-store.png" alt="Download on the App Store"></a>
+    </footer>
+    <script src="/js/login-page.js"></script>
+</body>
+</html>

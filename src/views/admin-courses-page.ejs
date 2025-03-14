@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin-page.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>HUSTHUB</title>
+</head>
+<body>
+    <%- include('in-app-header') %>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="/admin">HOME</a></li>
+            <li><a href="/admin/teacher">TEACHER</a></li>
+            <li><a href="/admin/student">STUDENT</a></li>
+            <li><a href="/admin/courses">COURSES</a></li>
+        </ul>
+    </nav>
+
+    <div class = "main-course-content fade-in">
+    <div class="h1">MANAGE COURSES</div>
+
+    <!-- <form id="searchForm">
+        <div class="search">
+            <input type="text" id="searchText" name="searchText" placeholder="Search by Courses ID...">
+            <button type="submit">Search</button>
+        </div>
+    </form> -->
+    
+
+    <div class="search-container">
+        <form id="searchForm" class="search-form">
+            <div class="textbox">
+                <div class="textbox-box">
+                    <div class="textbox-field">
+                        <input type="text" id="searchText"  placeholder="Search by Courses ID..." class="textbox-text" />
+                    </div>
+                    <button type="submit" class="search-button"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="CRUDCourses">
+        <!-- 3 Hộp (CREATE, UPDATE, DELETE) -->
+        <div class="container">
+            <div class="box" id="createBox">CREATE</div>
+            <div class="box" id="updateBox">UPDATE</div>
+            <div class="box" id="deleteBox">DELETE</div>
+        </div>
+        
+        <!-- Form CREATE -->
+        <div id="createForm" class="form-container" style="display: none;">
+            <h3>Create Course</h3>
+            <form id="createCourseForm">
+                <div class="input-field">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" id="course_id" name="course_id" required>
+                </div>
+                <div class="input-field">
+                    <label for="course_name">Course Name:</label>
+                    <input type="text" id="course_name" name="course_name" required>
+                </div>
+                <div class="input-field">
+                    <label for="course_credit">Course Credit:</label>
+                    <input type="number" id="course_credit" name="course_credit" required>
+                </div>
+                <button type="submit">Create</button>
+            </form>
+            <div id="createMessage" class="message-box"></div>
+        </div>
+        
+        <!-- Form UPDATE -->
+        <div id="updateForm" class="form-container" style="display: none;">
+            <h3>Update Course</h3>
+            <form id="updateCourseForm">
+                <div class="input-field">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" id="course_id" name="course_id" required>
+                </div>
+                <div class="input-field">
+                    <label for="course_name">Course Name:</label>
+                    <input type="text" id="course_name" name="course_name" required>
+                </div>
+                <div class="input-field">
+                    <label for="course_credit">Course Credit:</label>
+                    <input type="number" id="course_credit" name="course_credit" required>
+                </div>
+                <button type="submit">Update</button>
+            </form>
+            <div id="updateMessage" class="message-box"></div>
+        </div>
+        
+        <!-- Form DELETE -->
+        <div id="deleteForm" class="form-container" style="display: none;">
+            <h3>Delete Course</h3>
+            <form id="deleteCourseForm">
+                <div class="input-field">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" id="course_id" name="course_id" required>
+                </div>
+                <button type="submit">Delete</button>
+            </form>
+            <div id="deleteMessage" class="message-box"></div>
+        </div>
+        
+        <!-- CSS for message box -->
+        <style>
+            .message-box {
+                display: none;
+                margin-top: 10px;
+                padding: 10px;
+                color: #fff;
+                background-color: #28a745;
+                border-radius: 4px;
+            }
+        </style>
+        
+        <!-- JavaScript/jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Hiển thị form CREATE, UPDATE, DELETE khi nhấn vào các hộp tương ứng
+                $('#createBox').click(function() {
+                    $('.form-container').hide();
+                    $('#createForm').show();
+                });
+                $('#updateBox').click(function() {
+                    $('.form-container').hide();
+                    $('#updateForm').show();
+                });
+                $('#deleteBox').click(function() {
+                    $('.form-container').hide();
+                    $('#deleteForm').show();
+                });
+    
+                // Gửi form CREATE bằng AJAX
+                $('#createCourseForm').submit(function(event) {
+                    event.preventDefault();
+                    $.post('/admin/courses/create', $(this).serialize(), function(response) {
+                        $('#createMessage').text('Khóa học đã được tạo').css('display', 'block');
+                        setTimeout(function() {
+                            location.reload(); // Reload trang sau 3 giây
+                        }, 3000);
+                        $('#createCourseForm')[0].reset();
+                    }).fail(function() {
+                        $('#createMessage').text('Có lỗi xảy ra khi tạo khóa học').css({
+                            display: 'block',
+                            backgroundColor: 'red'
+                        });
+                    });
+                });
+    
+                // Gửi form UPDATE bằng AJAX
+                $('#updateCourseForm').submit(function(event) {
+                    event.preventDefault();
+                    $.post('/admin/courses/update', $(this).serialize(), function(response) {
+                        $('#updateMessage').text('Khóa học đã được cập nhật').css('display', 'block');
+                        setTimeout(function() {
+                            location.reload(); // Reload trang sau 3 giây
+                        }, 3000);
+                        $('#updateCourseForm')[0].reset();
+                    }).fail(function() {
+                        $('#updateMessage').text('Có lỗi xảy ra khi cập nhật khóa học').css({
+                            display: 'block',
+                            backgroundColor: 'red'
+                        });
+                    });
+                });
+    
+                // Gửi form DELETE bằng AJAX
+                $('#deleteCourseForm').submit(function(event) {
+                    event.preventDefault();
+                    $.post('/admin/courses/delete', $(this).serialize(), function(response) {
+                        $('#deleteMessage').text('Khóa học đã được xóa').css('display', 'block');
+                        setTimeout(function() {
+                            location.reload(); // Reload trang sau 3 giây
+                        }, 3000);
+                        $('#deleteCourseForm')[0].reset();
+                    }).fail(function() {
+                        $('#deleteMessage').text('Có lỗi xảy ra khi xóa khóa học').css({
+                            display: 'block',
+                            backgroundColor: 'red'
+                        });
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <!-- Div để hiển thị kết quả khóa học -->
+    <div id="coursesResult"></div>
+    
+    <script>
+        $(document).ready(function(){
+            // Hàm tải tất cả các khóa học khi trang được tải lần đầu
+            function loadAllCourses() {
+                $.ajax({
+                    url: '/admin/search-courses',
+                    method: 'POST',
+                    data: {
+                        searchText: '' // Không có từ khóa tìm kiếm để lấy tất cả khóa học
+                    },
+                    success: function(response){
+                        $('#coursesResult').html(response); // Hiển thị danh sách khóa học
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Có lỗi xảy ra:', error);
+                    }
+                });
+            }
+    
+            // Gọi loadAllCourses khi trang tải lần đầu
+            loadAllCourses();
+    
+            // Xử lý khi người dùng nhấn nút "Tìm kiếm"
+            $('#searchForm').submit(function(event){
+                event.preventDefault(); // Ngăn chặn tải lại trang
+    
+                // Lấy dữ liệu từ form
+                const searchText = $('#searchText').val();
+    
+                // Gửi yêu cầu AJAX tìm kiếm
+                $.ajax({
+                    url: '/admin/search-courses',
+                    method: 'POST',
+                    data: {
+                        searchText: searchText
+                    },
+                    success: function(response){
+                        // Hiển thị kết quả tìm kiếm trong #coursesResult
+                        $('#coursesResult').html(response);
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Có lỗi xảy ra:', error);
+                    }
+                });
+            });
+        });
+    </script>
+        
+    <div id="crudModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p id="modalMessage"></p>
+        <button id="closeModal">Close</button>
+    </div>
+</div>
+
+
+        
+
+
+
+        <div class="footer">
+            <h3>The system is designed and developed by GROUP 6</h3>
+            <p>Get app HUSTHUB on mobile</p>
+            <a href="#"><img src="/img/google-play.png" alt="Get it on Google Play"></a>
+            <a href="#"><img src="/img/app-store.png" alt="Download on the App Store"></a>
+        </div>
+    </div>
+</div>
+</script>
+
+
+</html>

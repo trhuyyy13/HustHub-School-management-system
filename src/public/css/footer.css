@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background */
+    margin: 0;
+}
+
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #cfe2cf;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footer h3 {
+    margin: 5;
+    color: black; /* Primary color */
+}
+
+.footer p {
+    margin: 5;
+    color: #555; /* Subtitle color */
+}
+
+.footer a img {
+    height: 50px; /* Adjust social media icon size */
+    margin: 10px;
+    border-radius: 5px;
+}

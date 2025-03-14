@@ -1,0 +1,269 @@
+/* src/public/css/admin-student-page.css */
+
+/* Import common search bar styles */
+@import url('search-bar.css');
+body {
+    font-family: 'Roboto', sans-serif;
+}
+/* Main Container */
+.student-container {
+    padding: 20px;
+}
+
+/* Button Styles */
+.add-btn {
+    background-color: #8a2be2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #6a1ab5;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Styles */
+.student-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.student-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.student-form button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #8a2be2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.student-form button:hover {
+    background-color: #6a1ab5;
+}
+
+/* Table Styles */
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.student-table th,
+.student-table td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.student-table th {
+    background-color: #e9ecef;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.student-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.student-table tr:hover {
+    background-color: #d4edda;
+}
+
+.student-table th::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    cursor: col-resize;
+    -webkit-animation: none;
+    animation: none;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+}
+
+/* Edit Button */
+.edit-btn {
+    background-color: #17a2b8; /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: auto; /* Adjust width */
+}
+
+.edit-btn i {
+    margin-right: 5px;
+    width: 16px; /* Fixed width for icon */
+    text-align: center;
+}
+
+.edit-btn:hover {
+    background-color: #138496; /* Darker blue on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Delete Button */
+.student-delete-form button {
+    background-color: #dc3545; /* Red color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: auto; /* Adjust width */
+}
+
+.student-delete-form button i {
+    margin-right: 5px;
+    width: 16px; /* Fixed width for icon */
+    text-align: center;
+}
+
+.student-delete-form button:hover {
+    background-color: #c82333; /* Darker red on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #8a2be2;
+}
+
+.pagination a.active {
+    background-color: #8a2be2;
+    color: #fff;
+}
+
+.pagination a:hover {
+    background-color: #6a1ab5;
+    color: #fff;
+}
+
+/* Fade-in Animation */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Spinner Styles */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    display: none; /* Hidden by default */
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #17a2b8; /* Blue color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

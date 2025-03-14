@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin-page.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <title>HUSTHUB</title>
+</head>
+
+<body>
+
+    <%- include('in-app-header') %>
+
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="/admin">HOME</a></li>
+                <li><a href="/admin/teacher">TEACHER</a></li>
+                <li><a href="/admin/student">STUDENT</a></li>
+                <li><a href="/admin/courses">COURSES</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-container fade-in">
+            <div class="general">
+                <h1> GENERAL</h1>
+                <div class="dashboard">
+                    <div class="card card-students">
+                        <div class="card-content">
+                            <div class="card-icon">🎓</div>
+                            <div class="card-text">
+                                <h1 class="count">
+                                    <%= totalStudents %>
+                                </h1>
+                                <p>Students</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-teachers">
+                        <div class="card-content">
+                            <div class="card-icon">🖥️</div>
+                            <div class="card-text">
+                                <h1 class="count">
+                                    <%= totalTeachers %>
+                                </h1>
+                                <p>Teachers</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-private-teachers">
+                        <div class="card-content">
+                            <div class="card-icon">👔</div>
+                            <div class="card-text">
+                                <h1 class="count">
+                                    <%= totalClasses %>
+                                </h1>
+                                <p>Classes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notification-container">
+                <h1> NOTIFICATION</h1>
+                <div class="notification">
+                    <% if (notices.length===0) { %>
+                        <p>Thông báo nhập điểm lớp Nhập môn Công nghệ phần mềm</p>
+                        <% } else { %>
+                            <ul>
+                                <% notices.forEach(function(notice) { %>
+                                    <li>
+                                        <%= notice %>;
+                                    </li>
+                                    <% }); %>
+                            </ul>
+                            <% } %>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <div class="card" style="width: 18rem;">
+                    <img src="img/admin1.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">TEACHER</h5>
+                        <p class="card-text">Admins can manage information about teachers, including their name, date of
+                            birth, qualifications, fields, and subjects taught.</p>
+                        <a href="/admin/teacher" class="btn btn-primary btn-modern">Go Teacher page</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="img/admin2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Student</h5>
+                        <p class="card-text">Students have the right to view the timetable, class schedule, lecturers,
+                            and academic results. However, they do not have the right to edit any information, including
+                            their personal information.</p>
+                        <a href="/admin/student" class="btn btn-primary btn-modern">Go Student page</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="img/admin3.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Courses</h5>
+                        <p class="card-text">Admins have the authority to create, add, delete, and modify courses,
+                            classes, credit hours, timetables, schedules, and classrooms. Additionally, admins can
+                            enroll students and lecturers into classes and manage class-related information such as
+                            grades, attendance, and more.</p>
+                        <a href="/admin/courses" class="btn btn-primary btn-modern">Go Courses page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('footer') %>
+
+            <script>
+                // Show spinner on page load
+                const spinner = document.getElementById('spinner');
+                window.addEventListener('load', () => {
+                    spinner.style.visibility = 'hidden';
+                    spinner.style.opacity = '0';
+                });
+            </script>
+</body>
+
+</html>

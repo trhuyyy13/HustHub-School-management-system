@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/teacher-classes.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <!-- Font Awesome CDN for search icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <title>My Classes</title>
+</head>
+
+<body>
+    <%- include('in-app-header') %>
+
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="/teacher" class="nav-link">HOME</a></li>
+                <li><a href="/teacher/classes" class="nav-link">CLASSES</a></li>
+                <li><a href="/teacher/schedule" class="nav-link">SCHEDULE</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <h1>My Classes</h1>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <form action="/teacher/classes" method="GET">
+                    <input type="text" name="search" value="<%= search %>"
+                        placeholder="Search classes by ID, course ID, or course name" class="search-bar" />
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i> <!-- Font Awesome Search Icon -->
+                    </button>
+                </form>
+            </div>
+
+            <!-- Classes Table -->
+            <table class="classes-table">
+                <thead>
+                    <tr>
+                        <th><a
+                                href="/teacher/classes?search=<%= search %>&sort_by=class_id&order=<%= sort_by === 'class_id' && order === 'ASC' ? 'DESC' : 'ASC' %>">Class
+                                ID</a></th>
+                        <th><a
+                                href="/teacher/classes?search=<%= search %>&sort_by=course_id&order=<%= sort_by === 'course_id' && order === 'ASC' ? 'DESC' : 'ASC' %>">Course
+                                ID</a></th>
+                        <th><a
+                                href="/teacher/classes?search=<%= search %>&sort_by=course_name&order=<%= sort_by === 'course_name' && order === 'ASC' ? 'DESC' : 'ASC' %>">Course
+                                Name</a></th>
+                        <th><a
+                                href="/teacher/classes?search=<%= search %>&sort_by=class_time_day&order=<%= sort_by === 'class_time_day' && order === 'ASC' ? 'DESC' : 'ASC' %>">Time</a>
+                        </th>
+                        <th>Room</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% classes.forEach(classItem=> { %>
+                        <tr>
+                            <td>
+                                <%= classItem.class_id %></a>
+                            </td>
+                            <td>
+                                <%= classItem.course_id %>
+                            </td>
+                            <td>
+                                <%= classItem.course_name %>
+                            </td>
+                            <td>
+                                <%= classItem.class_time_day %>,
+                                    <%= classItem.class_time_start %>
+                                        -
+                                        <%= classItem.class_time_end %>
+                            </td>
+                            <td>
+                                <%= classItem.room_id %>
+                            </td>
+                            <td><a href="/teacher/classes/<%= classItem.class_id %>" class="detail-btn">Detail</a></td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <%- include('footer') %>
+</body>
+
+</html>

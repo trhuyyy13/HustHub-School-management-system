@@ -1,0 +1,462 @@
+<!-- src/views/admin-student-page.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/img/logo.png" type="image/x-icon">
+  <title>HUSTHUB - Manage Students</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin-page.css">
+  <link rel="stylesheet" href="/css/admin-student-page.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <style>
+    /* Toastr custom position */
+    .toast-center {
+      top: 20px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: auto !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <%- include('in-app-header') %>
+
+  <!-- Spinner Overlay -->
+  <div class="spinner-overlay" id="spinner">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <ul class="nav-list">
+      <li><a href="/admin">HOME</a></li>
+      <li><a href="/admin/teacher">TEACHER</a></li>
+      <li><a href="/admin/student">STUDENT</a></li>
+      <li><a href="/admin/courses">COURSES</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="student-container">
+    <h1>Manage Students</h1>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <form id="searchStudentForm" class="search-form">
+        <div class="textbox">
+          <div class="textbox-box">
+            <div class="textbox-field">
+              <input type="text" id="searchText" name="query" placeholder="Search by ID or Name..." class="textbox-text" />
+            </div>
+            <button type="submit" class="search-button"></button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Add New Student Button -->
+    <button id="addStudentBtn" class="add-btn">Add New Student</button>
+
+    <!-- Add New Student Modal -->
+    <div id="addStudentModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Student</h2>
+        <form id="addStudentForm" class="student-form">
+          <label for="student_id">Student ID:</label>
+          <input type="text" name="student_id" required>
+
+          <label for="student_name">Name:</label>
+          <input type="text" name="student_name" required>
+
+          <label for="student_dob">Date of Birth:</label>
+          <input type="date" name="student_dob" required>
+
+          <label for="student_email">Email:</label>
+          <input type="email" name="student_email" required>
+
+          <label for="student_major">Major:</label>
+          <input type="text" name="student_major" required>
+
+          <button type="submit">Add Student</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Student Modal -->
+    <div id="editStudentModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Student</h2>
+        <form id="editStudentForm" class="student-form">
+          <input type="hidden" name="student_id" id="editStudentId">
+
+          <label for="edit_student_name">Name:</label>
+          <input type="text" name="student_name" id="edit_student_name" required>
+
+          <label for="edit_student_dob">Date of Birth:</label>
+          <input type="date" name="student_dob" id="edit_student_dob" required>
+
+          <label for="edit_student_email">Email:</label>
+          <input type="email" name="student_email" id="edit_student_email" required>
+
+          <label for="edit_student_major">Major:</label>
+          <input type="text" name="student_major" id="edit_student_major" required>
+
+          <button type="submit">Update Student</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Students Table -->
+    <h2>Students List</h2>
+    <div class="table-container">
+      <table class="student-table">
+        <thead>
+          <tr>
+            <!-- Student ID Column -->
+            <th>
+              <a href="?sortBy=student_id&sortOrder=<%= sortBy === 'student_id' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                Student ID
+                <% if (sortBy === 'student_id') { %>
+                  <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                <% } %>
+              </a>
+            </th>
+
+            <!-- Name Column -->
+            <th>
+              <a href="?sortBy=student_name&sortOrder=<%= sortBy === 'student_name' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                Name
+                <% if (sortBy === 'student_name') { %>
+                  <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                <% } %>
+              </a>
+            </th>
+
+            <!-- Date of Birth Column -->
+            <th>
+              <a href="?sortBy=student_dob&sortOrder=<%= sortBy === 'student_dob' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                Date of Birth
+                <% if (sortBy === 'student_dob') { %>
+                  <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                <% } %>
+              </a>
+            </th>
+
+            <!-- Email Column -->
+            <th>
+              <a href="?sortBy=student_email&sortOrder=<%= sortBy === 'student_email' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                Email
+                <% if (sortBy === 'student_email') { %>
+                  <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                <% } %>
+              </a>
+            </th>
+
+            <!-- Major Column -->
+            <th>
+              <a href="?sortBy=student_major&sortOrder=<%= sortBy === 'student_major' && sortOrder === 'ASC' ? 'desc' : 'asc' %>&action=sort">
+                Major
+                <% if (sortBy === 'student_major') { %>
+                  <i class="fas fa-sort-<%= sortOrder === 'ASC' ? 'up' : 'down' %>"></i>
+                <% } %>
+              </a>
+            </th>
+
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody">
+          <% students.forEach(function(student) { %>
+            <tr>
+              <td><%= student.student_id %></td>
+              <td><%= student.student_name %></td>
+              <td><%= student.student_dob %></td>
+              <td><%= student.student_email %></td>
+              <td><%= student.student_major %></td>
+              <td>
+                <div class="button-container">
+                  <button class="edit-btn"
+                    data-id="<%= student.student_id %>"
+                    data-name="<%= student.student_name %>"
+                    data-dob="<%= student.student_dob %>"
+                    data-email="<%= student.student_email %>"
+                    data-major="<%= student.student_major %>">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                  </button>
+                  <form action="/admin/student/delete" method="POST" class="student-delete-form">
+                    <input type="hidden" name="student_id" value="<%= student.student_id %>">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this student?');">
+                      <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="?page=<%= currentPage - 1 %>&sortBy=<%= sortBy %>&sortOrder=<%= sortOrder %>">&laquo; Previous</a>
+      <% } %>
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <a href="?page=<%= i %>&sortBy=<%= sortBy %>&sortOrder=<%= sortOrder %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+      <% } %>
+      <% if (currentPage < totalPages) { %>
+        <a href="?page=<%= currentPage + 1 %>&sortBy=<%= sortBy %>&sortOrder=<%= sortOrder %>">Next &raquo;</a>
+      <% } %>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <h3>The system is designed and developed by GROUP 6</h3>
+      <p>Get the HUSTHUB app on mobile</p>
+      <a href="#"><img src="/img/google-play.png" alt="Get it on Google Play"></a>
+      <a href="#"><img src="/img/app-store.png" alt="Download on the App Store"></a>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Toastr Configuration
+      toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-center",
+        "timeOut": "3000"
+      };
+
+      // Spinner functionality
+      const spinner = document.getElementById('spinner');
+      const urlParams = new URLSearchParams(window.location.search);
+      const action = urlParams.get('action');
+      
+      function showSpinner() {
+        spinner.style.display = 'flex';
+      }
+
+      function hideSpinner() {
+        spinner.style.display = 'none';
+      }
+
+      if (action !== 'sort') {
+        const studentContainer = document.querySelector('.student-container');
+        studentContainer.style.opacity = '1';
+      }
+
+      // Close modals when clicking on <span class="close">
+      const addModal = document.getElementById('addStudentModal');
+      const editModal = document.getElementById('editStudentModal');
+      document.querySelectorAll('.modal .close').forEach(span => {
+        span.onclick = function() {
+          addModal.style.display = "none";
+          editModal.style.display = "none";
+        }
+      });
+
+      // Add Student Button functionality
+      document.getElementById('addStudentBtn').addEventListener('click', function() {
+        addModal.style.display = "block";
+      });
+
+      // Edit button functionality
+      function attachEditListeners() {
+        document.querySelectorAll('.edit-btn').forEach(button => {
+          button.addEventListener('click', function() {
+            const studentId = this.getAttribute('data-id');
+            const studentName = this.getAttribute('data-name');
+            const studentDob = this.getAttribute('data-dob');
+            const studentEmail = this.getAttribute('data-email');
+            const studentMajor = this.getAttribute('data-major');
+
+            document.getElementById('editStudentId').value = studentId;
+            document.getElementById('edit_student_name').value = studentName;
+            document.getElementById('edit_student_dob').value = studentDob;
+            document.getElementById('edit_student_email').value = studentEmail;
+            document.getElementById('edit_student_major').value = studentMajor;
+
+            editModal.style.display = "block";
+          });
+        });
+      }
+
+      attachEditListeners();
+
+      // Add Student Form Submission
+      const addStudentForm = document.getElementById('addStudentForm');
+      addStudentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        showSpinner();
+
+        const formData = {
+          student_id: addStudentForm.elements['student_id'].value,
+          student_name: addStudentForm.elements['student_name'].value,
+          student_dob: addStudentForm.elements['student_dob'].value,
+          student_email: addStudentForm.elements['student_email'].value,
+          student_major: addStudentForm.elements['student_major'].value
+        };
+
+        fetch('/admin/student/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          hideSpinner();
+          if (data.error) {
+            toastr.error(data.error); // Toastr Error Notification
+          } else {
+            toastr.success(data.message); // Toastr Success Notification
+            location.reload();
+          }
+        })
+        .catch(error => {
+          hideSpinner();
+          console.error('Error creating student:', error);
+          toastr.error('An error occurred while creating the student.'); // Toastr Error Notification
+        });
+      });
+
+      // Edit Student Form Submission
+      const editStudentForm = document.getElementById('editStudentForm');
+      editStudentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        showSpinner();
+
+        const formData = {
+          student_id: editStudentForm.elements['student_id'].value,
+          student_name: editStudentForm.elements['student_name'].value,
+          student_dob: editStudentForm.elements['student_dob'].value,
+          student_email: editStudentForm.elements['student_email'].value,
+          student_major: editStudentForm.elements['student_major'].value
+        };
+
+        fetch('/admin/student/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          hideSpinner();
+          if (data.error) {
+            toastr.error(data.error);
+          } else {
+            toastr.success(data.message);
+            // Update the table row directly
+            const row = document.querySelector(`button[data-id="${formData.student_id}"]`).closest('tr');
+            row.querySelector('td:nth-child(2)').textContent = formData.student_name;
+            row.querySelector('td:nth-child(3)').textContent = formData.student_dob;
+            row.querySelector('td:nth-child(4)').textContent = formData.student_email;
+            row.querySelector('td:nth-child(5)').textContent = formData.student_major;
+
+            // Update the data attributes of the edit button
+            const editButton = row.querySelector('.edit-btn');
+            editButton.setAttribute('data-name', formData.student_name);
+            editButton.setAttribute('data-dob', formData.student_dob);
+            editButton.setAttribute('data-email', formData.student_email);
+            editButton.setAttribute('data-major', formData.student_major);
+
+            editModal.style.display = "none";
+          }
+        })
+        .catch(error => {
+          hideSpinner();
+          console.error('Error updating student:', error);
+          toastr.error('An error occurred while updating the student.');
+        });
+      });
+
+      // Show spinner when delete forms are submitted
+      const deleteForms = document.querySelectorAll('.student-delete-form');
+      deleteForms.forEach(form => {
+        form.addEventListener('submit', function() {
+          showSpinner();
+        });
+      });
+
+      // Search Student Functionality
+      const searchStudentForm = document.getElementById('searchStudentForm');
+      searchStudentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const query = document.getElementById('searchText').value.trim();
+        showSpinner();
+
+        fetch(`/admin/student/search?query=${encodeURIComponent(query)}`)
+          .then(response => response.json())
+          .then(data => {
+            hideSpinner();
+            const tbody = document.getElementById('studentTableBody');
+            tbody.innerHTML = '';
+
+            data.students.forEach(student => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${student.student_id}</td>
+                <td>${student.student_name}</td>
+                <td>${student.student_dob}</td>
+                <td>${student.student_email}</td>
+                <td>${student.student_major}</td>
+                <td>
+                  <div class="button-container">
+                    <button class="edit-btn" 
+                            data-id="${student.student_id}" 
+                            data-name="${student.student_name}" 
+                            data-dob="${student.student_dob}" 
+                            data-email="${student.student_email}" 
+                            data-major="${student.student_major}">
+                      <i class="fas fa-pencil-alt"></i> Edit
+                    </button>
+                    <form action="/admin/student/delete" method="POST" class="student-delete-form">
+                      <input type="hidden" name="student_id" value="${student.student_id}">
+                      <button type="submit" onclick="return confirm('Are you sure you want to delete this student?');">
+                        <i class="fas fa-trash-alt"></i> Delete
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              `;
+              tbody.appendChild(tr);
+            });
+
+            // Re-attach event listeners for new edit buttons
+            attachEditListeners();
+          })
+          .catch(error => {
+            hideSpinner();
+            console.error('Error fetching students:', error);
+            toastr.error('An error occurred while fetching students.'); // Toastr Error Notification
+          });
+      });
+
+      window.onclick = function(event) {
+        if (event.target == addModal) {
+          addModal.style.display = "none";
+        }
+        if (event.target == editModal) {
+          editModal.style.display = "none";
+        }
+      }
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+</html>

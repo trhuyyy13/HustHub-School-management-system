@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.main-content h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: #186A3B;
+    z-index: 1000;
+    padding: 1px;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.nav-list li {
+    margin: 0 100px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.nav-list a:hover {
+    color: #009688; /* Primary color */
+
+}
+
+/* Table Styling */
+.classes-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.classes-table th, .classes-table td {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.classes-table th {
+    background-color: #e9e9e9;
+    font-weight: bold;
+}
+
+.classes-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.classes-table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.classes-table tr:hover {
+    background-color: #d4edda;
+}
+
+.detail-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.detail-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.search-button {
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+}
+
+.search-button i {
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

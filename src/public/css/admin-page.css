@@ -1,0 +1,572 @@
+/* Import common search bar styles */
+@import url('search-bar.css');
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    background-color: #f4f4f4; /* Light background */
+    margin: 0; /* Đảm bảo body không có margin */
+    padding: 0; /* Xóa khoảng trắng của body */
+
+}
+.h1 {
+    font-size: 48px; /* Chữ to */
+    text-align: center; /* Căn giữa */
+    font-weight: bold; /* Tô đậm */
+    color: #2c3e50; /* Màu chữ */
+    margin-top: 20px; /* Khoảng cách trên */
+    margin-bottom: 20px; /* Khoảng cách dưới */
+    letter-spacing: 2px; /* Giãn cách chữ */
+    text-transform: uppercase; /* Chuyển chữ thành in hoa */
+    font-family: 'Arial', sans-serif; /* Phông chữ đẹp, dễ nhìn */
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    background-color: #cfe2cf; /* Light green background */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.title-container {
+    display: inline-block;
+    text-align: left;
+}
+
+.logo img {
+    height: 50px; /* Adjust logo size */
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #009688; /* Primary color */
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #555; /* Subtitle color */
+    margin: 0;
+}
+
+.login-btn {
+    background-color: #cfe2cf;
+    color: black;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    align-items: right;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #009688; /* Primary color */
+    color: white;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: #186A3B;
+    z-index: 1000;
+    padding: 1px;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.nav-list li {
+    margin: 0 100px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+
+
+.footer {
+    background-color: #cfe2cf;
+    padding: 10px;
+    text-align: center;
+    border-radius: 0;
+    width: 100vw; /* Đảm bảo footer tràn hết chiều rộng viewport */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 0; /* Xóa margin để tràn hết viền */
+    bottom: 0;
+}
+
+.footer h3 {
+    margin: 0;
+    color: black; /* Primary color */
+}
+
+.footer p {
+    margin: 0;
+    color: #555; /* Subtitle color */
+}
+
+.footer a img {
+    height: 50px; /* Adjust social media icon size */
+    margin: 10px;
+}
+
+.btn-modern {
+    background-color: #186A3B; /* Change to a green color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.btn-modern:hover {
+    background-color: #131814; 
+    border: 2px solid #186A3B; 
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-left: 5px solid;
+    transition: all 0.3s ease;
+}
+
+.notification.success {
+    border-color: #4CAF50; /* Green */
+}
+
+.notification.error {
+    border-color: #F44336; /* Red */
+}
+
+.notification.warning {
+    border-color: #FF9800; /* Orange */
+}
+
+.notification.info {
+    border-color: #2196F3; /* Blue */
+}
+
+.notification .icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.notification p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+    flex-grow: 1;
+}
+
+.notification .close-btn {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.notification .close-btn:hover {
+    color: #333;
+}
+
+.notification:hover {
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+}
+.dashboard {
+    margin: 20px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    gap: 20px;
+  
+}
+
+.card {
+    border-radius: 15px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+.h1{
+    align-items: center;
+    justify-content: center;
+}
+.card-text h1 {
+    font-size: 36px;
+    margin-bottom: 5px;
+    color: #fbfbfb;
+    justify-content: center;
+}
+
+.card-text p {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+/* Specific styles for each card */
+.card-students {
+    background-color: #606c38;
+    color: #fff;
+}
+
+.card-teachers {
+    background-color: #dda15e;
+    color: #fff;
+}
+
+.card-private-teachers {
+    background-color: #bc6c25;
+    color: #fff;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+}
+.count {
+    font-size: 24px;
+    color: green;
+    margin: 10px 0;
+}
+.notice {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification-container h1 {
+    align-items: center;
+    text-align: center;
+} 
+
+.general h1 {
+    align-items: center;
+    text-align: center;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.search {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    gap: 10px;
+    padding: 15px; /* Thêm khoảng cách xung quanh */
+    background-color: #f9f9f9; /* Màu nền nhẹ */
+    border: 1px solid #ddd; /* Đường viền nhẹ */
+    border-radius: 10px; /* Bo tròn góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng để tạo chiều sâu */
+    max-width: 400px; /* Đặt chiều rộng tối đa */
+    margin: 20px 20px 20px 20px; /* Căn giữa và thêm khoảng cách trên dưới */
+}
+
+
+
+.search .label {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.search .dropdown {
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.search .dropdown:focus {
+    border-color: #007bff; /* Đổi màu viền khi focus */
+}
+
+.search .search-box {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    width: 250px;
+}
+
+.search .search-box:focus {
+    border-color: #007bff; /* Đổi màu viền khi focus */
+}
+
+
+.DisplayAllCourses {
+    font-family: Arial, sans-serif;
+}
+
+.DisplayAllCourses .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 20px;
+}
+
+.DisplayAllCourses .courses-card {
+    border: 1px solid #004080;
+    border-radius: 5px;
+    padding: 10px;
+    width: 18%; /* Mỗi ô chiếm 30% chiều rộng để vừa 3 ô trên 1 hàng */
+    box-sizing: border-box;
+}
+
+.DisplayAllCourses .courses-id {
+    font-size: 24px;
+    color: #004080;
+}
+
+.DisplayAllCourses .courses-info {
+    font-size: 16px;
+}
+
+.DisplayAllCourses .row-break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+    .CRUDCourses .container {
+        display: flex;            /* Hiển thị theo hàng ngang */
+        justify-content: space-around;  /* Giãn cách đều giữa các hộp */
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .CRUDCourses .box {
+        width: 300px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 8px;        /* Bo góc cho các hộp */
+    }
+    .CRUDCourses .form-container {
+        display: none;
+        margin-top: 20px;
+    }
+    .CRUDCourses #createBox {
+        background-color: #606c38; 
+    }
+
+    .CRUDCourses #updateBox {
+        background-color: #dda15e; 
+    }
+    .CRUDCourses #deleteBox {
+        background-color: #bc6c25; 
+    }
+
+    .CRUDCourses .form-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 30px auto; /* Căn giữa form */
+        padding: 20px;
+        border: 2px solid #ddd; /* Đường viền */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        background-color: #f9f9f9; /* Nền màu sáng */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .CRUDCourses .form-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Tiêu đề form */
+    .CRUDCourses .form-container h3 {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    /* Khoảng cách và căn chỉnh các trường input */
+    .CRUDCourses .input-field {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .CRUDCourses .input-field label {
+        margin-bottom: 5px;
+        color: #333;
+        font-size: 0.9rem;
+    }
+    
+    .CRUDCourses .input-field input[type="text"],
+    .CRUDCourses .input-field input[type="number"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+    
+    .CRUDCourses .input-field input[type="text"]:focus,
+    .CRUDCourses .input-field input[type="number"]:focus {
+        border-color: #009688;
+    }
+    
+    /* Button styling */
+    .CRUDCourses button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #009688; /* Màu nền chính */
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .CRUDCourses button[type="submit"]:hover {
+        background-color: #00796b;
+    }
+
+
+
+.DisplayAllClasses {
+    font-family: Arial, sans-serif;
+}
+
+.DisplayAllClasses .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 20px;
+}
+
+.DisplayAllClasses .class-card {
+    border: 1px solid #004080;
+    border-radius: 5px;
+    padding: 10px;
+    width: 45%; 
+    box-sizing: border-box;
+}
+
+.DisplayAllClasses .class-id {
+    font-size: 24px;
+    color: #004080;
+}
+
+.DisplayAllClasses .class-info {
+    font-size: 16px;
+}
+
+.DisplayAllClasses .row-break {
+    flex-basis: 100%;
+    height: 0;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+.modal-content button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modal-content button:hover {
+    background-color: #0056b3;
+}

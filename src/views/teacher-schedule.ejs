@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Schedule</title>
+    <link rel="stylesheet" href="/css/teacher-schedule.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <%- include('in-app-header') %>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="/teacher" class="nav-link">HOME</a></li>
+                <li><a href="/teacher/classes" class="nav-link">CLASSES</a></li>
+                <li><a href="/teacher/schedule" class="nav-link">SCHEDULE</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <h1><%-user.teacher_name %>'s Timetable</h1>
+            <div id="calendar"></div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const calendarEl = document.getElementById('calendar');
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'timeGridWeek',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    },
+                    events: [
+                        {
+                            id: '1',
+                            title: 'Cấu trúc dữ liệu và giải thuật',
+                            startTime: '06:45:00',
+                            endTime: '10:05:00',
+                            daysOfWeek: [1],
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '06:45:00',
+                            endTime: '10:05:00',
+                            daysOfWeek: [2],
+                            title: 'Mạng máy tính',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '10:05:00',
+                            endTime: '11:45:00',
+                            daysOfWeek: [2],
+                            title: 'C Programming (Introduction)',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '12:30:00',
+                            endTime: '14:00:00',
+                            daysOfWeek: [2],
+                            title: 'Nhập môn Trí tuệ nhân tạo',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '14:10:00',
+                            endTime: '15:50:00',
+                            daysOfWeek: [2],
+                            title: 'Cơ sở dữ liệu',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '09:20:00',
+                            endTime: '11:45:00',
+                            daysOfWeek: [3],
+                            title: 'Project I',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '12:30:00',
+                            endTime: '15:00:00',
+                            daysOfWeek: [4],
+                            title: 'Lập trình C cơ bản',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '15:05:00',
+                            endTime: '17:30:00',
+                            daysOfWeek: [4],
+                            title: 'Lập trình hướng đối tượng',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '15:05:00',
+                            endTime: '17:30:00',
+                            daysOfWeek: [5],
+                            title: 'Project III',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        },
+                        {
+                            startTime: '15:05:00',
+                            endTime: '17:30:00',
+                            daysOfWeek: [6],
+                            title: 'Project II',
+                            allDay: false,
+                            startRecur: '2024-01-01',
+                            endRecur: '2026-01-01'
+                        }
+                    ]
+                });
+                calendar.render();
+            });
+        </script>
+
+        <%- include('footer') %>
+</body>
+
+</html>

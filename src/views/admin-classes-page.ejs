@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin-page.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>HUSTHUB</title>
+</head>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Course <%= course.course_id %>
+</title>
+<style>
+    /* Basic styling, you can adjust as needed */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .course-header,
+    .course-info {
+        margin-bottom: 20px;
+    }
+
+    h1,
+    h2 {
+        color: #333;
+    }
+
+    p {
+        color: #555;
+    }
+</style>
+</head>
+</body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin-page.css">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>HUSTHUB</title>
+</head>
+
+<body>
+    <div class="header">
+        <a href="/" class="left-section">
+            <div class="logo">
+                <img src="/img/logo.png" alt="HUSTHUB Logo" />
+            </div>
+            <div class="title-container">
+                <h1 class="title">HUSTHUB</h1>
+                <h2 class="subtitle">School Management System</h2>
+            </div>
+        </a>
+        <div class="right-section">
+            <form action="/logout" method="POST">
+                <button type="submit" class="login-btn">Log out</button>
+            </form>
+        </div>
+
+    </div>
+
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="/admin">HOME</a></li>
+            <li><a href="/admin/teacher">TEACHER</a></li>
+            <li><a href="/admin/student">STUDENT</a></li>
+            <li><a href="/admin/courses">COURSES</a></li>
+
+        </ul>
+    </nav>
+
+    <body>
+        <div class="container">
+            <a href="/admin/courses" style="background-color: #007bff;
+                color: white;
+                padding: 8px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;">Back to Courses</a>
+            <div class="course-header" style="text-align: center;">
+                <h1>THÔNG TIN MÔN HỌC</h1>
+                <h2>Course ID: <%= course.course_id %>
+                </h2>
+            </div>
+
+            <div class="course-info" style="text-align: center;">
+                <p><strong>Course Name:</strong>
+                    <%= course.course_name %>
+                </p>
+                <p><strong>Course Credit:</strong>
+                    <%= course.course_credit %>
+                </p>
+            </div>
+        </div>
+
+        <div class="CRUDCourses">
+            <!-- 3 Hộp (CREATE, UPDATE, DELETE) -->
+            <div class="container">
+                <div class="box" id="createBox">CREATE</div>
+                <div class="box" id="updateBox">UPDATE</div>
+                <div class="box" id="deleteBox">DELETE</div>
+            </div>
+
+            <!-- Form CREATE -->
+            <div id="createForm" class="form-container" style="display: none;">
+                <h3>Create Class</h3>
+                <form id="createClassForm">
+                    <div class="input-field">
+                        <label for="class_id">Class ID:</label>
+                        <input type="text" id="class_id" name="class_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="course_id">Course ID:</label>
+                        <input type="text" id="course_id" name="course_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="teacher_id">Teacher ID:</label>
+                        <input type="text" id="teacher_id" name="teacher_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="room_id">Room ID:</label>
+                        <input type="text" id="room_id" name="room_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="class_time_start">Time start:</label>
+                        <input type="text" id="class_time_start" name="class_time_start" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="class_time_end">Time end:</label>
+                        <input type="text" id="class_time_end" name="class_time_end" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="class_time_day">Day:</label>
+                        <input type="text" id="class_time_day" name="class_time_day" required>
+                    </div>
+                    <button type="submit">Create</button>
+                </form>
+                <div id="createMessage" class="message-box"></div>
+            </div>
+
+            <!-- Form UPDATE -->
+            <div id="updateForm" class="form-container" style="display: none;">
+                <h3>Update Class</h3>
+                <form id="updateClassForm">
+                    <div class="input-field">
+                        <label for="class_id">Class ID:</label>
+                        <input type="text" id="class_id" name="class_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="teacher_id">Teacher ID:</label>
+                        <input type="text" id="teacher_id" name="teacher_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="room_id">Room ID:</label>
+                        <input type="text" id="room_id" name="room_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="class_time_start">Time start:</label>
+                        <input type="text" id="class_time_start" name="class_time_start" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="class_time_end">Time end:</label>
+                        <input type="text" id="class_time_end" name="class_time_end" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="class_time_day">Day:</label>
+                        <input type="text" id="class_time_day" name="class_time_day" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="course_id2">Course ID:</label>
+                        <input type="text" id="course_id2" name="course_id2" required>
+                    </div>
+                    <button type="submit">Update</button>
+                </form>
+                <div id="updateMessage" class="message-box"></div>
+            </div>
+
+
+            <!-- Form DELETE -->
+            <div id="deleteForm" class="form-container" style="display: none;">
+                <h3>Delete Class</h3>
+                <form id="deleteClassForm">
+                    <div class="input-field">
+                        <label for="class_id">Class ID:</label>
+                        <input type="text" id="class_id" name="class_id" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="course_id1">Course ID:</label>
+                        <input type="text" id="course_id1" name="course_id1" required>
+                    </div>
+                    <button type="submit">Delete</button>
+                </form>
+                <div id="deleteMessage" class="message-box"></div>
+            </div>
+
+            <!-- CSS for message box -->
+            <style>
+                .message-box {
+                    display: none;
+                    margin-top: 10px;
+                    padding: 10px;
+                    color: #fff;
+                    background-color: #28a745;
+                    border-radius: 4px;
+                }
+            </style>
+
+            <!-- JavaScript/jQuery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    // Hiển thị form CREATE khi nhấn vào nút
+                    $('#createBox').click(function () {
+                        $('.form-container').hide();
+                        $('#createForm').show();
+                    });
+
+                    // Hiển thị form UPDATE khi nhấn vào nút
+                    $('#updateBox').click(function () {
+                        $('.form-container').hide();
+                        $('#updateForm').show();
+                    });
+
+                    // Hiển thị form DELETE khi nhấn vào nút
+                    $('#deleteBox').click(function () {
+                        $('.form-container').hide();
+                        $('#deleteForm').show();
+                    });
+                });
+
+                // AJAX xử lý CREATE
+                $(document).on('submit', '#createClassForm', function (event) {
+                    event.preventDefault();
+                    var courseId = $('#course_id').val();
+                    console.log('Course ID:', courseId);
+
+                    // Gửi yêu cầu POST đến server
+                    $.post(`/admin/courses/${courseId}/create`, $(this).serialize(), function (response) {
+                        $('#createMessage').text('Lớp học đã được tạo thành công!').css('display', 'block');
+                        setTimeout(function () {
+                            location.reload(); // Reload trang sau 3 giây
+                        }, 3000);
+                        $('#createClassForm')[0].reset();
+                    }).fail(function () {
+                        $('#createMessage').text('Có lỗi xảy ra khi tạo lớp học.').css({
+                            display: 'block',
+                            backgroundColor: 'red'
+                        });
+                    });
+                });
+
+                // AJAX xử lý UPDATE
+                $(document).on('submit', '#updateClassForm', function (event) {
+                    event.preventDefault();
+                    var courseId = $('#course_id2').val();
+                    console.log('Course ID:', courseId);
+
+                    // Gửi yêu cầu POST đến server
+                    $.post(`/admin/courses/${courseId}/update`, $(this).serialize(), function (response) {
+                        $('#updateMessage').text('Khóa học đã được cập nhật').css('display', 'block');
+                        setTimeout(function () {
+                            location.reload(); // Reload trang sau 3 giây
+                        }, 3000);
+                        $('#updateClassForm')[0].reset();
+                    }).fail(function () {
+                        $('#updateMessage').text('Có lỗi xảy ra khi cập nhật khóa học').css({
+                            display: 'block',
+                            backgroundColor: 'red'
+                        });
+                    });
+                });
+
+                // AJAX xử lý DELETE
+                $(document).on('submit', '#deleteClassForm', function (event) {
+                    event.preventDefault();
+                    var courseId = $('#course_id1').val();
+                    console.log('Course ID:', courseId);
+
+                    // Gửi yêu cầu POST đến server
+                    $.post(`/admin/courses/${courseId}/delete`, $(this).serialize(), function (response) {
+                        $('#deleteMessage').text('Khóa học đã được xóa').css('display', 'block');
+                        setTimeout(function () {
+                            location.reload(); // Reload trang sau 3 giây
+                        }, 3000);
+                        $('#deleteClassForm')[0].reset();
+                    }).fail(function () {
+                        $('#deleteMessage').text('Có lỗi xảy ra khi xóa khóa học').css({
+                            display: 'block',
+                            backgroundColor: 'red'
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+        <!-- Main Container -->
+        <div class="container">
+            <div class="course-header">
+                <h1>DANH SÁCH LỚP HỌC</h1>
+            </div>
+
+
+            <!-- Kiểm tra xem có lớp học nào không -->
+            <% if (classes.length> 0) { %>
+                <!-- Nhúng partials/classes-list.ejs vào đây -->
+                <%- include('partials/classes-list') %>
+                    <% } else { %>
+                        <p>Không có lớp học nào được tìm thấy.</p>
+                        <% } %>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="footer">
+            <h3>The system is designed and developed by GROUP 6</h3>
+            <p>Get app HUSTHUB on mobile</p>
+            <a href="#"><img src="/img/google-play.png" alt="Get it on Google Play"></a>
+            <a href="#"><img src="/img/app-store.png" alt="Download on the App Store"></a>
+        </div>
+        </div>
+
+</html>

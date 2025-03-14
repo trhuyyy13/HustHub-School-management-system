@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/class-detail.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <title>Class Details - <%= classDetails.course_name %>
+    </title>
+</head>
+
+<body>
+    <%- include('in-app-header') %>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="/teacher" class="nav-link">HOME</a></li>
+                <li><a href="/teacher/classes" class="nav-link">CLASSES</a></li>
+                <li><a href="/teacher/schedule" class="nav-link">SCHEDULE</a></li>
+            </ul>
+        </nav>
+
+        <div class="main">
+            <div class="back-button-container">
+                <a href="/teacher/classes" class="back-button">← Back to All Classes</a>
+            </div>
+
+            <h1>Class Details</h1>
+
+            <div class="class-info">
+                <p><strong>Class ID:</strong>
+                    <%= classDetails.class_id %>
+                </p>
+                <p><strong>Course Name:</strong>
+                    <%= classDetails.course_name %>
+                </p>
+                <p><strong>Teacher:</strong>
+                    <%= classDetails.teacher_name %>
+                </p>
+                <p><strong>Time:</strong>
+                    <%= classDetails.class_time_day %>, <%= classDetails.class_time_start %> - <%=
+                                classDetails.class_time_end %>
+                </p>
+                <p><strong>Room:</strong>
+                    <%= classDetails.room_id %>
+                </p>
+            </div>
+            <h2>Students</h2>
+
+            <!-- Student Table -->
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>Midterm Score</th>
+                        <th>Final Score</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% studentsList.forEach(student=> { %>
+                        <tr>
+                            <td>
+                                <%= student.student_id %>
+                            </td>
+                            <td>
+                                <%= student.student_name %>
+                            </td>
+                            <td>
+                                <%= student.student_email %>
+                            </td>
+                            <td>
+                                <%= student.midterm_score || '' %>
+                            </td>
+                            <td>
+                                <%= student.final_score || '' %>
+                            </td>
+                            <td>
+                                <button class="edit-btn" data-enrollment-id="<%= student.enrollment_id %>"
+                                    data-student-name="<%= student.student_name %>"
+                                    data-midterm-score="<%= student.midterm_score %>"
+                                    data-final-score="<%= student.final_score %>">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+
+            <!-- Pop-up Modal -->
+            <div id="edit-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Edit Grades</h2>
+                    <form id="update-grade-form">
+                        <input type="hidden" id="student-id">
+                        <input type="hidden" id="enrollment-id">
+                        <div>
+                            <label for="student-name">Student Name:</label>
+                            <input type="text" id="student-name" disabled>
+                        </div>
+                        <div>
+                            <label for="midterm-score">Midterm Score:</label>
+                            <input type="number" id="midterm-score" min="0" max="10" required>
+                        </div>
+                        <div>
+                            <label for="final-score">Final Score:</label>
+                            <input type="number" id="final-score" min="0" max="10" required>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="submit" class="submit-btn">Submit</button>
+                            <button type="button" class="cancel-btn" style="display: none;"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <%- include('footer') %>
+</body>
+
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('edit-modal');
+        const closeBtn = document.querySelector('.close-btn');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        const form = document.getElementById('update-grade-form');
+
+        // Edit button logic
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Get student data from button attributes
+                document.getElementById('student-id').value = button.dataset.studentId;
+                document.getElementById('enrollment-id').value = button.dataset.enrollmentId;
+                document.getElementById('student-name').value = button.dataset.studentName;
+                document.getElementById('midterm-score').value = button.dataset.midtermScore;
+                document.getElementById('final-score').value = button.dataset.finalScore;
+
+                // Show the modal
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal when clicking the close button
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking the cancel button
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Submit form to update scores
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const enrollmentId = document.getElementById('enrollment-id').value;
+            const midtermScore = document.getElementById('midterm-score').value;
+            const finalScore = document.getElementById('final-score').value;
+
+            try {
+                const response = await fetch('/teacher/update-scores', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        enrollment_id: enrollmentId,
+                        midterm_score: midtermScore,
+                        final_score: finalScore
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Grades updated successfully!');
+                    modal.style.display = 'none';
+                    window.location.reload(); // Reload page to show updated scores
+                } else {
+                    alert('Failed to update grades.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong.');
+            }
+        });
+    });
+</script>
